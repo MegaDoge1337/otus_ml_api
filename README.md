@@ -50,7 +50,7 @@ ALGORITHM= # алгоритм шифрования
 ACCESS_TOKEN_EXPIRE_MINUTES= # время, за которое JWT-токен истекает (в минутах, по умолчанию 1 минута)
 ```
 
-## База
+## База данных
 
 В качестве примитивной базы данных для хранения пользователей используется `JSON`-документ со следующей структурой:
 ```py
@@ -94,6 +94,7 @@ curl --location 'http://localhost:8000/token' \
 Для доступа к маршруту, поместите ранее полученный токен в заголовок `Authorization`.
 
 Пример curl-запроса:
+```
 curl --location 'http://localhost:8000/make_inference' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJqb2huX2RvZSIsImV4cCI6MTczNTIxMzU3Mn0.JyxVg7NjihW2UXVtYwTHngxDQ_POnmmJezQM8Mu9tRc' \
 --header 'Content-Type: application/json' \
@@ -101,13 +102,17 @@ curl --location 'http://localhost:8000/make_inference' \
     "paws_count": 4,
     "has_fur": 1,
     "mammal": 1
-}'mammal": 1
 }'
 ```
 
-Ответ возвращается в формате JSON с полем `result`:
+Пример ответа:
 ```py
 {
-    "result": "dog"
+    "result": "dog",
+    "user": {
+        "username": "john_doe",
+        "email": "john@example.com",
+        "age": 40
+    }
 }
 ```
